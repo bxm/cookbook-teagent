@@ -9,24 +9,29 @@ if node['teagent']['set_repo']
     include_recipe 'teagent::dependency'
 end
 
-package 'te-agent' do
-    action :install
+unless node['teagent']['package'].includes('te-agent')
+    node['teagent']['package']['te-agent'] = true
 end
 
-if node['teagent']['agent_utils']
-    package 'te-agent-utils'
-end
+node['teagent']['package'].each do |pkg,ver|
 
-if node['teagent']['browserbot']
-    package 'te-browserbot' do
-        action :install
+    next unless pkg.match(/^te-/) # stop other installs piggy backing
+
+    package pkg do
+        if (ver or pkg == 'te-agent') # always install te-agent
+            if ver.to_s.match(/^latest$/)
+                action :upgrade
+            else
+                action :install
+                version ver.to_s if vers.match(/^([0-9]+[.]){2,}[0-9]+-[1-9][0-9]*$/)
+            end
+            allow_downgrade true
+            notifies(:run, 'execute[config_teagent.sh]', :delayed) if pkg == 'te-agent'
+        else
+            action :delete
+        end
     end
-end
 
-if node['teagent']['international_langs']
-    package 'te-intl-fonts' do
-        action :install
-    end
 end
 
 template '/var/lib/te-agent/config_teagent.sh' do
@@ -45,12 +50,13 @@ template '/var/lib/te-agent/config_teagent.sh' do
         :real_interface  => node['teagent']['interface'],
     })
     action :create
-    notifies :run, "execute[config_teagent.sh]", :immediately
+    notifies :run, "execute[config_teagent.sh]", :delayed
 end
 
 execute 'config_teagent.sh' do
     command '/var/lib/te-agent/config_teagent.sh'
     action :nothing
+    notifies :restart, 'service[te-agent]', :delayed
 end
 
 include_recipe 'teagent::service'

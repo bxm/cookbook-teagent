@@ -17,3 +17,7 @@ default['teagent']['ip_version'] = 'ipv4'
 default['teagent']['interface'] = ''
 default['teagent']['agent_utils'] = false
 default['teagent']['set_repo'] = true
+default['teagent']['package']['te-agent']       = true
+default['teagent']['package']['te-browserbot']  = false
+default['teagent']['package']['te-agent-utils'] = false
+default['teagent']['package']['te-intl-fonts']  = false

@@ -64,6 +64,12 @@ Attributes
     <td>Ip version for the agent to run with ('ipv4' or 'ipv6')</td>
     <td><tt>'ipv4'</tt></td>
   </tr>
+  <tr>
+    <td><pre>['teagent']['package'][PACKAGE]</pre></td>
+    <td>String</td>
+    <td>Version to deploy; accepts version number in M.m.b-r format, use boolean for ':install'/':delete' action, 'latest' for :upgrade action (NB - 'te-agent' always installs)</td>
+    <td><pre>true</pre></td>
+  </tr>
 </table>
 
 Usage
