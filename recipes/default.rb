@@ -9,7 +9,7 @@ if node['teagent']['set_repo']
     include_recipe 'teagent::dependency'
 end
 
-unless node['teagent']['package'].includes('te-agent')
+unless node['teagent']['package'].has_key?('te-agent')
     node['teagent']['package']['te-agent'] = true
 end
 
