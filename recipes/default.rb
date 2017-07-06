@@ -28,7 +28,7 @@ node['teagent']['package'].each do |pkg,ver|
             allow_downgrade true
             notifies(:run, 'execute[config_teagent.sh]', :delayed) if pkg == 'te-agent'
         else
-            action :delete
+            action :remove
         end
     end
 

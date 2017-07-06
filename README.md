@@ -67,7 +67,7 @@ Attributes
   <tr>
     <td><pre>['teagent']['package'][PACKAGE]</pre></td>
     <td>String</td>
-    <td>Version to deploy; accepts version number in M.m.b-r format, use boolean for ':install'/':delete' action, 'latest' for :upgrade action (NB - 'te-agent' always installs)</td>
+    <td>Version to deploy; accepts version number in M.m.b-r format, use boolean for ':install'/':remote' action, 'latest' for :upgrade action (NB - 'te-agent' always installs)</td>
     <td><pre>true</pre></td>
   </tr>
 </table>
