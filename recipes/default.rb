@@ -23,7 +23,7 @@ node['teagent']['package'].each do |pkg,ver|
                 action :upgrade
             else
                 action :install
-                version ver.to_s if vers.match(/^([0-9]+[.]){2,}[0-9]+-[1-9][0-9]*$/)
+                version ver.to_s if ver.to_s.match(/^([0-9]+[.]){2,}[0-9]+-[1-9][0-9]*$/)
             end
             allow_downgrade true
             notifies(:run, 'execute[config_teagent.sh]', :delayed) if pkg == 'te-agent'
